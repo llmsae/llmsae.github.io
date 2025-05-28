@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Taming Polysemanticity in LLMs: Provable Feature Recovery via
+    Sparse Autoencoders</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Taming Polysemanticity in LLMs: Provable Feature Recovery via
+              Sparse Autoencoders</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">Siyu Chen</a><sup>*</sup>,</span>
+              <span class="author-block">Heejune Sheen</a><sup>*</sup>,</span>
+              <span class="author-block">Xuyuan Xiong</a><sup>†</sup>,</span>
+              <span class="author-block">Tianhao Wang</span></a><sup>§</sup>,</span>
+              <span class="author-block">Zhuoran Yang</a><sup>*</sup></span>
+              
+              </span>
+                  </div>
+
+                  <br>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>*</sup>Department of Statistics and Data Science, Yale University</span>
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+                  </div>
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>†</sup>Antai College of Economics and Management, Shanghai Jiao Tong University</span>
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+                  </div>
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>§</sup>Toyota Technological Institute at Chicago</span>
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <!-- TODO: add arxiv paper id -->
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- Supplementary PDF link
+                    <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/FFishy-git/TamingSAE_GBA/tree/main/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <!-- TODO: add arxiv paper id -->
+
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%"> -->
+        <!-- Your video here -->
+        <!-- <source src="static/videos/banner_video.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+      </h2>
+    </div>
+  </div>
+</section> -->
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We study the challenge of achieving theoretically grounded feature recovery using Sparse Autoencoders (SAEs) for the interpretation of Large Language Models. 
+            Existing SAE training algorithms often lack rigorous mathematical guarantees and suffer from practical limitations such as hyperparameter sensitivity and instability. To address these issues, we first propose a novel statistical framework for the feature recovery problem, which includes a new notion of feature identifiability by modeling polysemantic features as sparse mixtures of underlying monosemantic concepts. Building on this framework, we introduce a new SAE training algorithm based on ``bias adaptation'',  a technique that adaptively adjusts neural network bias parameters to ensure appropriate activation sparsity. We theoretically prove that this algorithm correctly recovers all monosemantic features when input data is sampled from our proposed statistical model. Furthermore, we develop an improved empirical variant, Group Bias Adaptation (GBA), and demonstrate its superior performance against benchmark methods when applied to LLMs with up to 1.5 billion parameters. This work represents a foundational step in demystifying SAE training by providing the first SAE algorithm with theoretical recovery guarantees, thereby advancing the development of more transparent and trustworthy AI systems through enhanced mechanistic interpretability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Algorithm Design -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Algorithm Design</h2>
+        <div class="content has-text-justified">
+          <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+          </script>
+          <p>
+            Our algorithm has two main components: 
+            (1) a bias adaptation subroutine that controls the activation frequency of each neuron, and
+            (2) a neuron grouping strategy that allows us to assign different target activation frequencies to different groups of neurons.
+          </p>
+          <img src="./static/images/algorithm.png" alt="algorithm" class="method-overview-full-img  method-overview" draggable="false" />
+
+          <p>
+            The proposed algorithm contains \(T\) iterations and maintains a buffer of size \(B\) for each neuron.
+            For each iteration, we sample a mini-batch of data and normalize it to unit \(\ell_2\) norm. 
+            The normalization is used for improving the training stability. 
+            We then compute the pre-activations and the reconstruction loss, and update the weights using a standard optimizer (e.g., AdamW).
+            Note that we do not update the biases during this step.
+            The pre-activations are appended to the buffer, and when the buffer is full, we call the bias adaptation subroutine to update the biases.          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results of Group Bias Adaptation -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Reconstruction loss and activation sparsity frontier</h2>
+        <div class="content has-text-justified">
+          <p>We summarize the key findings as follows:</p>
+          <ul>
+            <li>Our method performs comparably to the best-performing benchmark, TopK, and thus is significantly better than the L<sub>1</sub> penalty-based method, when measured by post-activation sparsity. Notably, GBA outperforms TopK in terms of pre-activation sparsity.</li>
+            
+            <li>Moreover, we compare our method with its non-grouped counterpart and observe that GBA consistently outperforms the non-grouped version across all experiments. This provides strong evidence that the grouping mechanism enhances both sparsity and reconstruction performance.</li>
+          </ul>
+        </div>
+
+        <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+        
+        <img src="./static/images/loss_sparsity.png" alt="Loss and Sparsity Frontier" class="method-overview-full-img method-overview" draggable="false" />
+        <p style="text-align: left;">
+          Figure 6: The reconstruction error with respect to the average fraction of neurons activated per data point. All experiments are conducted using an SAE with 66k neurons.
+          A neuron is considered active in the pre-activation if 
+          \(\mathbb{1}(w_m^\top x + b_m > 0),\) 
+          and in the post-activation if 
+          \(\mathbb{1}(\sigma(w_m^\top x + b_m) > 0).\)
+          This distinction between pre- and post-activation is relevant only for the TopK activation.
+        </p>
+        <!-- <img src="./static/images/sd_table.jpg" alt="FID" class="method-overview-full-img  method-overview" draggable="false" /> -->
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ablation Study -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Robustness and almost tuning-free</h2>
+        <div class="content has-text-justified">
+          <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+          </script>
+          <p>
+            We perform an ablation study on neuron grouping and target frequency, as shown in Figure 7. The middle and right panels indicate that with enough groups, performance is largely unaffected by the exact number of groups. The left panel shows that performance depends on the Highest Target Frequency (HTF): a low HTF limits the recovery of frequent features because bias adaptation may overly suppress persistently active neurons.
+          </p>
+          <p>
+            Therefore, it is suggested to set a higher HTF to allow for more frequent features to be captured.
+            Notably, even with a high HTF=0.3—much less restrictive than TopK with \(K \in [50,600]\) over 66k neurons—increasing the number of groups still yields roughly \(0.5\%\) sparsity, matching TopK's performance regardless of LTF.
+          </p>
+
+        </div>
+        <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+        <img src="./static/images/group_ablation.png" alt="Group Ablation Study" class="method-overview-full-img method-overview" draggable="false" />
+        <p style="text-align: left;">
+          Figure 7: Ablation study illustrating the impact of neuron grouping and the highest target frequency for Github-Layer 26. For each run, we partition the neurons into \#Groups groups and set the target frequencies in a log scale between the Highest Target Frequency (HTF) and Lowest Target Frequency (LTF).  The LTFs are chosen from \({1\times 10^{-3}, 5\times 10^{-3}, 1\times 10^{-4}}\) and the HTFs are chosen from \({0.05, 0.1, 0.3}\).
+        </p>
+
+        <!-- <img src="./static/images/sd_table.jpg" alt="FID" class="method-overview-full-img  method-overview" draggable="false" /> -->
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Consistency of recovered features.</h2>
+        <div class="content has-text-justified">
+          <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+          </script>
+          <p>
+            Furthermore, we assess the consistency of the learned features across independent runs with different random seeds. 
+            Since ground truth features are unavailable, consistency serves as a proxy for the reliability of the training method. 
+            For each neuron in one run, we compute its Maximum Cosine Similarity (MCS) with neurons from another run; a high MCS indicates that a feature is consistently recovered. 
+            To avoid the influence of rarely activated neurons, we restrict our analysis to the top-$\alpha$ neurons—selected based on maximum activation or Z-score. 
+            The results are presented in Figure 8, and we summarize the key findings as follows:
+          </p>
+          <ul>
+            <li>
+              As aforementioned, the TopK method is known to be seed-dependent.
+              Our method outperforms TopK in achieving a higher percentage of neurons with high MCS.
+            </li>
+            <li>
+              The \(L_1\) penalty-based method has been shown to be more consistent than TopK.
+              When focusing on neurons with the top-\(0.05\%\) activations, our method surpasses the \(L_1\) method.
+            </li>
+          </ul>
+          <p>
+            These results suggest that in our experimental setting, the proposed GBA method achieves the
+            Pareto frontier in terms of reconstruction fidelity, activation sparsity, and feature consistency.
+          </p>
+
+        </div>
+        <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+        <img src="./static/images/consistency.png" alt="Consistency" class="method-overview-full-img method-overview" draggable="false" />
+        <p style="text-align: left;">
+          Figure 8: Percentage of neurons that have max cosine similarity exceeding threshold  for Github-Layer 26, where the max cosine similarity is evaluated for neurons from 3 different runs initialized with different seeds. 
+            We take Max Projection and Z-Score as the selecting criteria and plot within a subset of neurons that rank top-$\alpha$ under the criteria in all the neurons with \(\alpha\) in {\(0.3\%, 0.05\%\)}
+        </p>
+
+        <!-- <img src="./static/images/sd_table.jpg" alt="FID" class="method-overview-full-img  method-overview" draggable="false" /> -->
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- 1. 和上面一节完全相同的 columns 结构 -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-centered">
+        <h2 class="title is-3" style="white-space: nowrap;">
+          Demo: Feature Dashboard
+        </h2>
+        <p class="content" style="text-align: left;">
+          Here we present a demo of the SAE learned feature dashboard. See all the feature dashboards in <a href="./dashboards.html">All Feature Dashboards</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container is-fluid" style="padding-top: 0;">
+    <div class="columns">
+      <div class="column">
+        <iframe
+          src="./static/dashboards/feature_1440.html"
+          title="Feature Dashboard Demo"
+          style="
+            width: 80%;
+            max-width: 1600px;  
+            height: 800px;     
+            border: none;
+            display: block;
+            margin: 0 auto;     
+          ">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Image carousel -->
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item"> -->
+        <!-- Your image here -->
+        <!-- <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          First image description.
+        </h2>
+      </div>
+      <div class="item"> -->
+        <!-- Your image here -->
+        <!-- <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          Second image description.
+        </h2>
+      </div>
+      <div class="item"> -->
+        <!-- Your image here -->
+        <!-- <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Third image description.
+       </h2>
+     </div>
+     <div class="item"> -->
+      <!-- Your image here -->
+      <!-- <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        Fourth image description.
+      </h2>
+    </div>
+  </div>
+</div>
+</div>
+</section> -->
+<!-- End image carousel -->
+
+
+
+
+<!-- Youtube video -->
+<!-- <section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container"> -->
+      <!-- Paper video. -->
+      <!-- <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video"> -->
+            <!-- Youtube embed code here -->
+            <!-- <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%"> -->
+            <!-- Your video file here -->
+            <!-- <source src="static/videos/carousel1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%"> -->
+            <!-- Your video file here -->
+            <!-- <source src="static/videos/carousel2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\ -->
+            <!-- Your video file here -->
+            <!-- <source src="static/videos/carousel3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End video carousel -->
+
+
+
+
+
+
+<!--BibTex citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section> -->
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+            <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>

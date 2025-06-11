@@ -141,25 +141,45 @@
     const selector = document.getElementById('dashboard-selector');
     const iframe   = document.getElementById('dashboard-frame');
 
-    // 构建 <option> 并注入
+    // create <option> and inject
     dashboards.forEach(fname => {
       const opt = document.createElement('option');
       opt.value = `./static/dashboards/${fname}`;
-      // 显示纯数字 index 更直观
+      // show pure number index more intuitive
       opt.text  = fname.replace('feature_','').replace('.html','');
       selector.appendChild(opt);
     });
 
-    // 监听切换
+    // listen to switch
     selector.addEventListener('change', e => {
       iframe.src = e.target.value;
     });
 
-    // 初始化：默认展示第一个
+    // 
     if (dashboards.length > 0) {
       selector.selectedIndex = 0;
       iframe.src = `./static/dashboards/${dashboards[0]}`;
     }
+
+    // Add home button
+    const homeButton = document.createElement('button');
+    homeButton.textContent = 'Back to Home';
+    homeButton.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #485fc7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    `;
+    homeButton.addEventListener('click', () => {
+      window.location.href = './index.html';
+    });
+    document.body.appendChild(homeButton);
   </script>
 </body>
 </html>

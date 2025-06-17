@@ -404,16 +404,16 @@
         <div class="content has-text-justified">
           <p>
             To address the limitations of existing Sparse Autoencoder (SAE) training methods, we propose a new algorithm called <span class="highlight-2">Grouped Bias Adaptation (GBA)</span>. 
-            Our algorithm has two main components: a <b>bias adaptation</b> subroutine that controls the activation frequency of each neuron, and a <b>neuron grouping</b> strategy that allows us to assign different target activation frequencies to different groups of neurons. The algorithm is carried out as follows:
+            Our algorithm has two main components: a <b>bias adaptation</b> subroutine that controls the activation frequency of each neuron, and a <b>neuron grouping</b> strategy that allows us to assign different target activation frequencies (TAFs) to different groups of neurons. The algorithm is carried out as follows:
           </p>
           <ol>
-            <li><strong>Before the training: Neuron Grouping with Target Activation Frequencies</strong><br>
+            <li><strong>Before the training: Neuron Grouping with TAFs</strong><br>
               <blockquote>
-                We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique target activation frequency (TAF) \(p_k\). During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).
+                We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\). During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).
                 We typically use a geometric sequence for assigning the target activation frequencies, e.g., \(p_{k+1} = p_k / 2\).
               </blockquote>
             </li>
-            <li><strong>During the training: Bias Adaptation to Achieve Target Activation Frequencies</strong><br>
+            <li><strong>During the training: Bias Adaptation to Achieve TAFs</strong><br>
               <blockquote>
                 We adjust the bias dynamically based on the frequency of activation over a dataset. If a neuron is activated more frequently than its TAF, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons.
               </blockquote>

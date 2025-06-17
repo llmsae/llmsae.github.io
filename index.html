@@ -429,13 +429,26 @@
           </p>
           <div class="box" style="background-color: #f5f5f5;">
             <strong>Before the training: Neuron Grouping with TAFs</strong><br>
-            We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\). During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).
-            We typically use a geometric sequence starting at a high frequency, e.g., 0.1, and decreasing to a low frequency, e.g., 0.001, for assigning the TAFs to capture both the common and rare features.
+            <ul>
+                <li>We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\).</li>
+                <li>During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).</li>
+                <li>We typically use a geometric sequence starting at a high frequency, e.g., 0.1, and decreasing to a low frequency, e.g., 0.001, for assigning the TAFs to capture both the common and rare features.</li>
+            </ul>
           </div>
 
           <div class="box" style="background-color: #f5f5f5;">
             <strong>During the training: Bias Adaptation to Achieve TAFs</strong><br>
-            Besides minimizing the reconstruction loss by performing gradient step on the weights \(w_m\), we also adjust the bias dynamically based on the frequency of neuron activation over a dataset. If a neuron is activated more frequently than its TAF, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons.
+            During training, we perform two main operations:
+            <ul>
+                <li>Minimize reconstruction loss by performing gradient steps on the weights \(w_m\)</li>
+                <li>Dynamically adjust neuron biases based on activation frequency:
+                    <ul>
+                        <li>If a neuron activates more frequently than its TAF → decrease its bias to reduce activation</li>
+                        <li>If a neuron activates less frequently than its TAF → increase its bias to encourage activation</li>
+                    </ul>
+                </li>
+            </ul>
+            This dual approach maintains balanced neuron activation and prevents "dead" neurons.
           </div>
           <p>
             By combining these two strategies, GBA offers direct control over neuron activation, avoiding the need for complex tuning while ensuring that neurons are activated at appropriate frequencies to learn features that also occur with different frequencies.
@@ -720,7 +733,28 @@
         </p>
         </p>
 
-        <h3 class="title is-4" style="text-align: center;">Neuron Selectivity</h3>
+        <h3 class="title is-4" style="text-align: center;">Feature Learning</h3>
+        We theoretically investigate whether the proposed GBA method can learn the features that are identifiable. For theoretical simplicity, we consider only one group with a single Target Activation Frequency (TAF).
+        Since we only consider one group, we also require all the features to have similar occurrence frequency.
+        The results can be extended to multiple groups with different TAFs.
+          <div style="margin: 10px 0;">
+            <div style="background-color: #e0e0e0; padding: 8px; border-top-left-radius: 5px; border-top-right-radius: 5px; text-align: left;">
+              <strong>Informal Theorem (Feature Learning)</strong>
+            </div>
+            <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
+              Under the identifiability and additional regularity conditions, the GBA algorithm can learn all the features with high probability in the sense that for any feature \(v_i\), there exists a neuron \(m_i\) that after constant number of iterations, \(\cos(v_i, m_i) = 1 - o(1)\).
+            </div>
+          </div>
+        </p>
+        <div class="box has-text-left">
+          <span class="tag is-info is-medium">Answer to Question 3: How to Recover the Features?</span>
+          <p class="mt-3">
+            We theoretically prove that the GBA algorithm can recover all the features if the features are identifiable and certain regularity conditions are met.
+          </p>
+        </div>
+
+        
+        <h3 class="title is-4" style="text-align: center;">Insights into Neuron Selectivity</h3>
         <p class="content" style="text-align: left;">
           Building on our understanding of feature identifiability, we now explore how the GBA algorithm's neuron grouping strategy leads to selective feature learning. In our synthetic experiments, where each feature appears with frequency \(f = \Theta(1/n)\), we discovered a fundamental relationship between feature frequency and Target Activation Frequency (TAF).
 

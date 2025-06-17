@@ -525,7 +525,7 @@
               <li><code>BA (Bias Adaptation)</code>: A variant of GBA with a single group and hyperparameter tuning for Target Activation Frequency (TAF).</li>
               <li><code>GBA (Grouped Bias Adaptation)</code>: Our proposed method, which uses multiple groups of neurons with TAFs set geometrically without hyperparameter tuning.</li>
             </ul>
-            All methods were trained using the AdamW optimizer with the same set of hyperparameters, including learning rate, weight decay, and batch size. In the GBA method, we used <span class="highlight">10 groups</span>, with the highest target frequency set to <span class="highlight">0.1</span> and the lowest set to <span class="highlight">0.001</span>.
+            All methods were trained using the AdamW optimizer with the same set of hyperparameters, including learning rate, weight decay, and batch size. In the GBA method, we used <span class="highlight">10 groups</span>, with the Highest Target Frequency (HTF) set to <span class="highlight">0.1</span> and the Lowest Target Frequency (LTF) set to <span class="highlight">0.001</span>.
           </p>
         </div>
 
@@ -686,6 +686,24 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-centered">
+        <h2 class="title is-3">Theoretical Insight</h2>
+        <h3 class="title is-4">A Statistical Framework for Feature Recovery</h3>
+        <p class="content" style="text-align: left;">
+          To formulate the feature recovery problem, let's consider a model's hidden representation at a specific layer. This layer encodes \(n\) distinct features in a \(d\)-dimensional space, which we collect into a <span class="highlight">feature matrix</span> \(V\in\mathbb{R}^{n\times d}\). Each row \(v_i\) represents one feature vector.
+          
+          Given a training set of \(N\) tokens, we extract their hidden representations into a <span class="highlight">data matrix</span> \(X\in\mathbb{R}^{N\times d}\). Each row \(x_\ell\) is a weighted combination of the feature vectors, with weights stored in a <span class="highlight">coefficient matrix</span> \(H\in\mathbb{R}_+^{N\times n}\). This gives us the compact data model:
+          \begin{align}\label{eq:data_model}
+              X = H V \in \mathbb{R}^{N\times d}.
+          \end{align}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <!-- Image carousel -->

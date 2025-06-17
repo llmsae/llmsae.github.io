@@ -324,7 +324,7 @@
           <p>
             <h2 style="font-weight: bold; font-size: 20px;">BACKGROUND 2: SPARSE AUTOENCODERS</h2>
             <div class="box">
-              <h4 class="title is-5">🔍 What are SAEs?</h4>
+              <h4 class="title is-5">📚 What are SAEs?</h4>
               At the core of our feature recovery method is the Sparse Autoencoder (SAE), a neural network designed to learn sparse representations through self-reconstruction. A typical SAE architecture (with weight sharing between encoding and decoding layers) can be described as follows:
               \[
                   \hat x = \sum_{m=1}^M a_{m} \cdot w_{m} \cdot \phi\bigl( \underbrace{{w_{m}^\top (x-b_{\mathrm{pre}}) + b_{m}}}_{\displaystyle  \small\text{pre-activation}~y_m} \bigr) + b_{\mathrm{pre}}, 
@@ -428,16 +428,16 @@
             Our algorithm has two main components: a <b>bias adaptation</b> subroutine that controls the activation frequency of each neuron, and a <b>neuron grouping</b> strategy that allows us to assign different target activation frequencies (TAFs) to different groups of neurons. The algorithm is carried out as follows:
           </p>
           <div class="box" style="background-color: #f5f5f5;">
-            <strong>Before the training: Neuron Grouping with TAFs</strong><br>
+            <strong>👥 Before the training: Neuron Grouping with TAFs</strong><br>
             <ul>
-                <li>We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\).</li>
+                <li>We divide the neurons into some groups (let us denote each group as \(G_k\), and the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\).</li>
                 <li>During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).</li>
                 <li>We typically use a geometric sequence starting at a high frequency, e.g., 0.1, and decreasing to a low frequency, e.g., 0.001, for assigning the TAFs to capture both the common and rare features.</li>
             </ul>
           </div>
 
           <div class="box" style="background-color: #f5f5f5;">
-            <strong>During the training: Bias Adaptation to Achieve TAFs</strong><br>
+            <strong>🔄 During the training: Bias Adaptation to Achieve TAFs</strong><br>
             During training, we perform two main operations:
             <ul>
                 <li>Minimize reconstruction loss by performing gradient steps on the weights \(w_m\)</li>
@@ -754,33 +754,26 @@
         </div>
 
         
-        <h3 class="title is-4" style="text-align: center;">Insights into Neuron Selectivity</h3>
+        <h3 class="title is-4" style="text-align: center;">Additional Insights</h3>
         <p class="content" style="text-align: left;">
-          Building on our understanding of feature identifiability, we now explore how the GBA algorithm's neuron grouping strategy leads to selective feature learning. In our synthetic experiments, where each feature appears with frequency \(f = \Theta(1/n)\), we discovered a fundamental relationship between feature frequency and Target Activation Frequency (TAF).
-
-          <div style="margin: 10px 0;">
-            <div style="background-color: #e0e0e0; padding: 8px; border-top-left-radius: 5px; border-top-right-radius: 5px; text-align: left;">
-              <strong>Informal Theorem (Feature Learning Selectivity)</strong>
-            </div>
-            <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
-              For a feature appearing with frequency \(f\), the BA algorithm can successfully recover it when the TAF \(p\) is chosen within the interval:
-              \[
-              (f, \min\{f^{(1 + h_\star^2)/2}, d \cdot f\})
-              \]
-              This implies that <span class="highlight">feature learning is selective</span>: a feature is more likely to be learned by a neuron whose TAF is higher than the feature's frequency but roughly less than its square root.
-            </div>
-          </div>
-
-          This selectivity principle explains why GBA's performance isn't dominated by the first group with the highest TAF. Instead, features tend to be learned by neuron groups with matching TAFs. This behavior is analogous to the physical phenomenon of resonance, where each neuron group acts as a resonator tuned to a specific frequency (TAF), while each feature behaves like a sound wave with its own frequency (occupancy frequency). A feature is preferentially learned by the group whose TAF <span class="highlight">resonates</span> with the feature's natural occurrence frequency.
-
-          <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+          <div class="box has-text-left">
+            <h2 style="font-weight: bold; font-size: 20px;">🎵 Feature-Neuron Resonance</h2>
+            <p class="mt-3">
+              Our theoretical analysis further reveals that GBA works through a selective feature learning mechanism, where each <span class="highlight">neuron group preferentially learns features whose natural occurrence frequency is just slightly lower than the group's target activation frequency (TAF)</span>. This "resonance" principle enables robust and consistent feature recovery, and demonstrates the necessity of using different neuron groups to learn features with different occurrence frequencies.
+            </p>
+            <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+        
             <figure>
               <img src="./static/images/selectivity_analysis.png" alt="Analysis of feature learning selectivity">
               <figcaption style="font-size: small; text-align: left;">
-                <center>Figure 7: Feature Recovery Rate (FRR) heatmap for the BA algorithm under various TAFs \(p\) and dimensions \(d\) with both axes in log scale. The experiment is conducted under <span class="highlight">high superposition</span> conditions with parameters \((n, M, s, h_\star) = (65536, 2.62\times10^5, 3, 1/\sqrt3)\). The results show that the learnable region expands as the dimension \(d\) grows, confirming our theoretical predictions about feature learning selectivity.</center>
+                <center>Figure 7: Heatmap for percentage of features learned with different TAFs \(p\) and dimensions \(d\) with both axes in log scale. The experiment is conducted with \(65536\) features and \(2.62\times10^5\) neurons. Each feature has an occurrancy frequency of \(4.6\times 10^{-5}\). The learnable TAF \(p\) is just above the feature's occurrence frequency.
+                </center>
               </figcaption>
             </figure>
+            </div>
           </div>
+
+          
         </p>
       </div>
     </div>

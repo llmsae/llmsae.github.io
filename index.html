@@ -416,19 +416,16 @@
             To address the limitations of existing Sparse Autoencoder (SAE) training methods, we propose a new algorithm called <span class="highlight-2">Grouped Bias Adaptation (GBA)</span>. 
             Our algorithm has two main components: a <b>bias adaptation</b> subroutine that controls the activation frequency of each neuron, and a <b>neuron grouping</b> strategy that allows us to assign different target activation frequencies (TAFs) to different groups of neurons. The algorithm is carried out as follows:
           </p>
-          <ol>
-            <li><strong>Before the training: Neuron Grouping with TAFs</strong><br>
-              <blockquote>
-                We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\). During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).
-                We typically use a geometric sequence starting at a high frequency, e.g., 0.1, and decreasing to a low frequency, e.g., 0.001, for assigning the TAFs to capture both the common and rare features.
-              </blockquote>
-            </li>
-            <li><strong>During the training: Bias Adaptation to Achieve TAFs</strong><br>
-              <blockquote>
-                Besides minimizing the reconstruction loss by performing gradient step on the weights \(w_m\), we also adjust the bias dynamically based on the frequency of neuron activation over a dataset. If a neuron is activated more frequently than its TAF, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons.
-              </blockquote>
-            </li>
-          </ol>
+          <div class="box" style="background-color: #f5f5f5;">
+            <strong>Before the training: Neuron Grouping with TAFs</strong><br>
+            We divide the neurons into some groups (let us denote the group index as \(k=1,2,\ldots,K\)), and each group has a unique TAF \(p_k\). During the training, we wish the activation frequency (fraction of data on which the neuron is activated) for neurons within each group to be close to \(p_k\).
+            We typically use a geometric sequence starting at a high frequency, e.g., 0.1, and decreasing to a low frequency, e.g., 0.001, for assigning the TAFs to capture both the common and rare features.
+          </div>
+
+          <div class="box" style="background-color: #f5f5f5;">
+            <strong>During the training: Bias Adaptation to Achieve TAFs</strong><br>
+            Besides minimizing the reconstruction loss by performing gradient step on the weights \(w_m\), we also adjust the bias dynamically based on the frequency of neuron activation over a dataset. If a neuron is activated more frequently than its TAF, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons.
+          </div>
           <p>
             By combining these two strategies, GBA offers direct control over neuron activation, avoiding the need for complex tuning while ensuring that neurons are activated at appropriate frequencies to learn features that also occur with different frequencies.
           </p>
@@ -581,7 +578,7 @@
         <div class="content has-text-justified">
           <p>
             <!-- The third question examines the consistency of the features learned by the GBA method across independent runs with different random seeds. We evaluate this using the Maximum Cosine Similarity (MCS) metric, and the results show that GBA outperforms other methods, including TopK, in terms of feature consistency. -->
-            The third question examines the consistency of the features learned by the GBA method across independent runs with different random seeds. We evaluate this using the Maximum Cosine Similarity (MCS) metric, and the results show that GBA outperforms other methods, including TopK, in terms of feature consistency. The specific definition of MCS can be found in the §A.2 of the paper. Simply put, MCS represents the similarity between the ground truth feature and the learned feature, with higher values indicating better consistency.
+            The third question examines the consistency of the features learned by the GBA method across independent runs with different random seeds. We evaluate this using the Maximum Cosine Similarity (MCS) metric, and the results show that GBA outperforms other methods, including TopK, in terms of feature consistency. The specific definition of MCS can be found in  §A.2 (Evaluation Metrics) of the paper. Simply put, a higher MCS indicates that a neuron can find another neuron that is more similar to it in other runs, with higher values indicating better consistency. Speicifically, we plot the percentage of neurons that has MCS higher than different  thresholds, where the neurons ploted are also filtered by certain metrics.
           </p>
           <ul style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
             <li>🏆<strong>Finding (5):</strong> As the TopK method is shown to be seed-dependent, it has the lowest MCS overall. Our <span class="highlight">GBA method outperforms TopK</span> in achieving a higher percentage of neurons with high MCS.</li>
@@ -621,12 +618,14 @@
         </div>
 
         <div class="content has-text-justified">
-          <ul style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
-            <li style="font-weight: bold; font-size: 1.1em; margin-bottom: 10px;">Subplots Explanation</li>
-            <li><strong>Left:</strong> Z-score vs Maximum Activation - This plot shows the relationship between the Z-score and maximum activation of neurons. We observe an <span class="highlight">almost linear relationship</span>, indicating that neurons with higher Z-scores also have higher maximum activations.</li>
-            <li><strong>Middle:</strong> Z-score vs Activation Fraction - This plot illustrates the correlation between the Z-score and the activation fraction. Neurons with higher Z-scores tend to have a lower activation fraction, capturing more infrequent features.</li>
-            <li><strong>Right:</strong> Z-score vs Maximum Cosine Similarity - This plot compares the Z-score and maximum cosine similarity across different runs. It shows that <span class="highlight">neurons with higher Z-scores tend to exhibit higher consistency in feature recovery across runs</span>.</li>
-          </ul>
+          <div class="box" style="background-color: #f5f5f5;">
+            <h4 class="title is-5" style="margin-bottom: 15px;">Subplots Explanation</h4>
+            <ul>
+              <li><strong>Left:</strong> Z-score vs Maximum Activation - This plot shows the relationship between the Z-score and maximum activation of neurons. We observe an <span class="highlight">almost linear relationship</span>, indicating that neurons with higher Z-scores also have higher maximum activations.</li>
+              <li><strong>Middle:</strong> Z-score vs Activation Fraction - This plot illustrates the correlation between the Z-score and the activation fraction. Neurons with higher Z-scores tend to have a lower activation fraction, capturing more infrequent features.</li>
+              <li><strong>Right:</strong> Z-score vs Maximum Cosine Similarity - This plot compares the Z-score and maximum cosine similarity across different runs. It shows that <span class="highlight">neurons with higher Z-scores tend to exhibit higher consistency in feature recovery across runs</span>.</li>
+            </ul>
+          </div>
         </div>
 
         <!-- Placeholder for the second set of scatter plots for TopK neurons -->

@@ -672,13 +672,13 @@
           Given data generated according to Eq. \eqref{eq:data_model}, we know that not all feature matrices \(V\) can be uniquely identified from the observed data matrix \(X\). This leads us to a fundamental question in feature recovery: Under what conditions can we identify the feature matrix \(V\) from the data matrix \(X\)?
         <!-- </p>
         <p style="text-align: left;"> -->
-          Here, the <span class="highlight">identifiability</span> of the feature matrix \(V\) is defined as the following:
+          In the following, we restrict to \((H,V), (H', V')\in \mathcal{G}\) for a class \(\mathcal{G}\).
           <div style="margin: 10px 0;">
             <div style="background-color: #e0e0e0; padding: 8px; border-top-left-radius: 5px; border-top-right-radius: 5px; text-align: left;">
-              <strong>Informal Definition (Feature Identifiability)</strong>
+              <strong>Definition (Feature Identifiability)</strong>
             </div>
             <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
-              A feature matrix \(V \in \mathbb{R}^{n\times d}\) is identifiable with data \(X = HV\) for a class \((H, V)\in \mathcal{G}\) if for any other feature matrix \(V'\) (possibly with different number of features in the rows) and comformal coefficient matrix \(H'\) that satisfy \(X = H'V', (H', V')\in \mathcal{G}\), there is a way to obtain \(V\) from \(V'\) in the following 3 steps:
+               A feature matrix \(V \in \mathbb{R}^{n\times d}\) is identifiable with data \(X = HV\) if for any other feature matrix \(V'\) (possibly with different number of features in the rows) and conformable coefficient matrix \(H'\) that satisfy \(X = H'V'\), we can transform \(V'\) into \(V\) through the following 3 steps:
               <ol style="list-style-type: decimal; padding-left: 30px; margin-top: 5px; margin-bottom: 5px;">
                 <li>Split the features (rows) of \(V'\) into \(n\) disjoint groups, then form a new feature matrix \(V''\in\mathbb{R}^{n\times d}\) by taking convex combinations of features within each group.</li>
                 <li>Scale the rows of \(V''\) in magnitude.</li>
@@ -700,13 +700,21 @@
                 <strong>Informal Theorem (Identifiability Conditions)</strong>
               </div>
               <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
-                Given data \(X = HV\), the feature matrix \(V\) is identifiable within the class \(\mathcal{G}\) where \((H, V)\in \mathcal{G}\) satisfies the following conditions:
+                Given data \(X = HV\), the feature matrix \(V\) is identifiable within the class \(\mathcal{G}\) if any \((H', V')\in \mathcal{G}\) satisfies the following conditions:
                 <ol style="list-style-type: decimal; padding-left: 30px; margin-top: 5px; margin-bottom: 5px;">
-                  <li>(Row-wise sparsity) Each row of \(H\) contains at most \(O(1)\) nonzero entries.</li>
-                  <li>(Non-degeneracy) The average value of the non-zero entries in each column of \(H\) is \(O(1)\).</li>
+                  <li>(Row-wise sparsity) Each data contains at most \(O(1)\) features.</li>
+                  <li>(Non-degeneracy) The average scale of the non-zero entries in each column of \(H'\) is \(O(1)\).</li>
                   <li>(Low co-occurrence) The number of data in which two features co-occur is less than \(n^{-1/2}\) times the number of data each feature appears in.</li>
                   <li>(Incoherence) The cosine similarity between any two features is \(o(1)\).</li> 
                 </ol>
+              </div>
+              We have four conditions that guarantee the identifiability of the feature matrix \(V\). Specifically, the first two conditions say that each data is a <span class="highlight">sparse</span> linear combination of the features, and the coefficients in the linear combination should not be too small, otherwise the feature can be too weak to be identified. 
+              The last two conditions imply that any two features should occur <span class="highlight">almost independently</span> in the dataset, and any two features should also be <span class="highlight">almost orthogonal</span>.
+              <div class="box has-text-left">
+                <span class="tag is-info is-medium">Answer to Question 2: When are the Features Identifiable?</span>
+                <p class="mt-3">
+                  The feature matrix V is identifiable when features are <span class="highlight">almost independently occurring</span> and <span class="highlight">almost orthogonal</span>. Besides, each data should be a <span class="highlight">sparse</span> linear combination of the features with <span class="highlight">non-negligible</span> combination coefficients.
+                </p>
               </div>
             </div>
         </p>

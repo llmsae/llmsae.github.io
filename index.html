@@ -18,7 +18,26 @@
       color: #0081B9; 
     }
     .question {
-      color: #DAA520;  
+      color: #B8860B;  
+    }
+    .highlight-2 {
+      color: #800080;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .term {
+      display: inline-block;
+      padding: 0 5px;
+      background-color: rgba(255,255,255,0.5);
+      border-radius: 3px;
+    }
+    .equation {
+      text-align: center;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      font-weight: bold;
     }
   </style>
 
@@ -77,15 +96,15 @@
 
                   <br>
 
-                  <div class="is-size-5 publication-authors">
+                  <div class="is-size-6 publication-authors">
                     <span class="author-block"><sup>*</sup>Department of Statistics and Data Science, Yale University</span>
                     <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
                   </div>
-                  <div class="is-size-5 publication-authors">
+                  <div class="is-size-6 publication-authors">
                     <span class="author-block"><sup>†</sup>Antai College of Economics and Management, Shanghai Jiao Tong University</span>
                     <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
                   </div>
-                  <div class="is-size-5 publication-authors">
+                  <div class="is-size-6 publication-authors">
                     <span class="author-block"><sup>§</sup>Toyota Technological Institute at Chicago</span>
                     <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
                   </div>
@@ -169,23 +188,190 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <div class="title is-3">Abstract</div>
         <div class="content has-text-justified">
           <p>
-            We study the challenge of achieving theoretically grounded feature recovery using Sparse Autoencoders (SAEs) for the interpretation of Large Language Models. 
-            Existing SAE training algorithms often lack rigorous mathematical guarantees and suffer from practical limitations such as hyperparameter sensitivity and instability. 
-            To address these issues, we first propose a novel statistical framework for the feature recovery problem, which includes a new notion of feature identifiability by modeling polysemantic features as sparse mixtures of underlying monosemantic concepts. 
-            Building on this framework, we introduce a new SAE training algorithm based on <span class="highlight">bias adaptation</span>, a technique that adaptively adjusts neural network bias parameters to ensure appropriate activation sparsity. 
-            We theoretically <span class="highlight">prove that this algorithm correctly recovers all monosemantic features</span> when input data is sampled from our proposed statistical model. 
-            Furthermore, we develop an improved empirical variant, Group Bias Adaptation (GBA), and <span class="highlight">demonstrate its superior performance against benchmark methods when applied to LLMs with up to 1.5 billion parameters</span>. 
-            This work represents a foundational step in demystifying SAE training by providing the first SAE algorithm with theoretical recovery guarantees, thereby advancing the development of more transparent and trustworthy AI systems through enhanced mechanistic interpretability.
-                  </p>
+            We address the challenge of theoretically grounded feature recovery using Sparse Autoencoders (SAEs) for interpreting Large Language Models. Current SAE training methods lack mathematical guarantees and face issues like hyperparameter sensitivity. We propose a statistical framework for feature recovery that models polysemantic features as sparse mixtures of monosemantic concepts. Based on this, we develop a "bias adaptation" SAE training algorithm that dynamically adjusts network biases for optimal sparsity. We <span class="highlight">prove that this algorithm correctly recovers all monosemantic features</span> under our statistical model. Our improved variant, Group Bias Adaptation (GBA), <span class="highlight">outperforms existing methods on LLMs up to 1.5 billion parameters</span> in terms of sparsity-loss trade-off and feature consistency. This work provides the first SAE algorithm with theoretical recovery guarantees, advancing interpretable and trustworthy AI through enhanced mechanistic understanding.
+          </p>
+          
         </div>
       </div>
     </div>
   </div>
 </section>
 <!-- End paper abstract -->
+
+<!-- What are our contributions -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Key Contributions</h2>
+        <div class="content has-text-justified">
+          <!-- <p>
+            Our work addresses these theoretical and practical issues in feature recovery with the following contributions:
+          </p> -->
+          <div class="box">
+            <i class="fas fa-chart-bar"></i>
+            <span class="highlight">A novel statistical framework</span> that rigorously formalizes feature recovery by modeling polysemantic features as sparse combinations of underlying monosemantic concepts, and establishes a precise notion of feature identifiability.
+          </div>
+
+          <div class="box">
+            <i class="fas fa-tools"></i>
+            <span class="highlight">An innovative SAE training algorithm</span>, <span class="highlight-2">Group Bias Adaptation (GBA)</span>, which adaptively adjusts neural network bias parameters to enforce optimal activation sparsity, allowing distinct groups of neurons to target different activation frequencies.
+          </div>
+
+          <div class="box">
+            <i class="fas fa-calculator"></i>
+            <span class="highlight">The first theoretical guarantee</span> proving that SAE training algorithm can provably recover all monosemantic features when the input data is sampled from our proposed statistical model.
+          </div>
+
+          <div class="box">
+            <i class="fas fa-rocket"></i>
+            <span class="highlight">Superior empirical performance</span> on LLMs up to 1.5B parameters, where GBA achieves the best sparsity-loss trade-off while learning more consistent features than benchmark methods.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Introduction -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            <h2 style="font-weight: bold; font-size: 20px;">WHAT IS FEATURE RECOVERY?</h2>
+            To understand the task of feature recovery, let us consider the following example sentence: 
+            <blockquote>
+                <p>
+                    <i>The detective found a <span style="background-color: rgba(255,255,0,0.25); color: black; font-weight: bold;">muddy footprint</span> near the <span style="background-color: rgba(0,128,128,0.10); color: black; font-weight: bold;">broken window</span>, leading him to suspect a <span style="text-decoration: underline;">?</span></i>
+                </p>
+            </blockquote>
+            The sentence contains two distinct concepts: a muddy footprint and a broken window. For a trained deep neural network, the learned representations in the intermediate layers are often <span class="highlight">polysemantic</span>, meaning that they are mixture of multiple features of the underlying concepts.
+            Specifically, the representation \(x\) after seeing the whole sentence may have the following form:
+            <blockquote style="text-align: center;">
+                \(x = h_1 \cdot\) <span class="term">
+                    <span style="background-color: rgba(255,255,0,0.25);">
+                        <b><i>"feature of muddy footprint"</i></b>
+                    </span>
+                </span>
+                \( + h_2 \cdot\) <span class="term">
+                    <span style="background-color: rgba(0,128,128,0.10);">
+                        <b><i>"feature of broken window"</i></b>
+                    </span>
+                </span>
+            </blockquote>
+            where \(h_1\) and \(h_2\) are the nonnegative weights of the two <span class="highlight">monosemantic features</span>. After obtaining the polysemantic representation \(x\), the model can then generate the token "burglary" at the "?" position.<br>
+            <blockquote>
+              <b>The goal of feature recovery</b> is to recover the <span class="highlight">monosemantic features</span> underlying each concept, through training on a dataset that contains <span class="highlight">polysemantic representations</span>, which are often extracted from the intermediate layers of a trained deep neural network, e.g., the residual stream of a transformer-based model.
+            </blockquote>
+            While this example illustrates the intuitive notion of monosemantic features, we need a more rigorous definition to make progress. 
+            Currently, researchers primarily assess monosemanticity through feature <i>interpretability</i>, i.e., how well a feature aligns with human-understandable concepts.
+            However, this anthropocentric view has limitations: neural networks may process information in ways fundamentally different from human conceptual understanding. We need a more principled, mathematically grounded definition of monosemantic features that captures their essential properties independent of human interpretation. Specifically, we ask the following questions:
+            
+            </p>
+            <div class="columns is-centered">
+              <div class="column is-one-fourth">
+                <div class="box has-text-centered">
+                  <span class="tag is-info is-medium">Question 1</span>
+                  <p class="mt-3">What kind of feature can be counted as <span class="highlight">monosemantic</span>?</p>
+                </div>
+              </div>
+              <div class="column is-two-fifths">
+                <div class="box has-text-centered">
+                  <span class="tag is-info is-medium">Question 2</span>
+                  <p class="mt-3">Given <span class="highlight">polysemantic</span> representations, how can we know monosemantic features are identifiable?</p>
+                </div>
+              </div>
+              <div class="column is-one-fourth">
+                <div class="box has-text-centered">
+                  <span class="tag is-info is-medium">Question 3</span>
+                  <p class="mt-3">How to recover the monosemantic features?</p>
+                </div>
+              </div>
+            </div>
+            <p>
+              
+            </p>
+            </div>
+
+            <div class="content has-text-justified">
+            <p>
+            <h2 style="font-weight: bold; font-size: 20px;">WHAT ARE SPARSE AUTOENCODERS?</h2>
+            At the core of our feature recovery method is the Sparse Autoencoder (SAE), a neural network designed to learn sparse representations through self-reconstruction. A typical SAE architecture (with weight sharing between encoding and decoding layers) can be described as follows:
+            \[
+                f(x; \Theta) = \sum_{m=1}^M a_{m} \cdot w_{m} \cdot \phi\bigl( \underbrace{{w_{m}^\top (x-b_{\mathrm{pre}}) + b_{m}}}_{\displaystyle  \small\text{pre-activation}~y_m} \bigr) + b_{\mathrm{pre}}.
+            \]
+
+            <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+              <figure>
+                <img src="./static/images/SAE.pdf" alt="Illustration of neuron grouping and bias adaptation">
+                <figcaption style="font-size: small; text-align: left;">
+                  <script type="text/javascript" async
+                  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+                  </script>
+                  Figure 1: <b>Sparse Autoencoder Architecture:</b> The SAE architecture with weight sharing between encoding and decoding layers.
+                </figcaption>
+              </figure>
+            </div>
+
+            A neuron is considered "activated" when its pre-activation y_m > 0. When activated, the neuron contributes to the output proportionally to its weight vector w_m, scaled by a_m.
+            <ul>
+                <li>
+                🔍 <b>What are SAEs?</b> Sparse Autoencoders (SAEs) are neural networks that are used to "decompose" the inner representation of another neural network (e.g., LLM) into a set of monosemantic features.
+                </li>
+                <li>
+                  🔧<b>How are SAEs trained?</b> SAEs are trained to reconstruct intermediate representations of LLMs while ensuring that each input activates only a small number of neurons in the learned representation.
+                </li>
+                <li>
+                🤔 <b>Why using SAEs?</b> The hypothesis is that by enforcing activation sparsity, SAEs can decompose polysemantic representations (a mixture of multiple features) into monosemantic features (which each correspond to a single interpretable concept).
+                </li>
+                <!-- <li> -->
+                <!-- 🎯 <b>The key challenge</b> is designing training algorithms that reliably recover these monosemantic features while maintaining good reconstruction quality.
+                </li> -->
+            </ul>
+          </p>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <h2 style="font-weight: bold; font-size: 20px;">WHAT ARE THE CHALLENGES</h2>
+            We study the challenge of achieving theoretically grounded feature recovery using Sparse Autoencoders (SAEs) for the interpretation of Large Language Models. 
+            <ul>
+                <li><b>Theoretical uncertainty:</b> We lack clear feature definitions  and current SAE training algorithms <span class="question">lack theoretical guarantees</span>, making reliable feature recovery uncertain.</li>
+                <li><b>Hyperparameter sensitivity:</b> Empirically, \( \ell_1 \) regularization and TopK activation methods are <span class="question">sensitive to hyperparameters</span> tuning.</li>
+                <li><b>Feature inconsistency:</b> TopK activation methods produce <span class="question">inconsistent features</span> across different random seeds.</li>
+            </ul>
+            <h2 style="font-weight: bold; font-size: 20px;">WHAT ARE OUR GOALS</h2>
+            Our research aims to address these challenges with the following objectives:
+            <ul>
+                <li>
+                ✅<b>Theoretical foundation:</b> Develop a rigorous mathematical framework for understanding and analyzing feature recovery in SAEs.
+                </li>
+                <li>
+                📈 <b>Algorithm design:</b> Create a simple and robust training algorithm that can reliably recover monosemantic features without extensive hyperparameter tuning, and learn more consistent features across different random seeds<sup>1</sup>.
+                </li>
+            </ul>
+            
+            Ultimately, our research aims to establish a rigorous foundation for mechanistic interpretability research, bringing us closer to realizing our interpretability dreams<sup>2</sup> of understanding the inner workings of neural networks.
+            <br><br>
+            <sup>1</sup><small><a href="https://arxiv.org/abs/2501.16615">Paulo, Gonçalo, and Nora Belrose. "Sparse Autoencoders Trained on the Same Data Learn Different Features." <u>https://arxiv.org/abs/2501.16615</u></a></small><br>
+            
+            <sup>2</sup><small><a href="https://transformer-circuits.pub/2023/interpretability-dreams/index.html">Chris Olah. "Interpretability Dreams." <u>https://transformer-circuits.pub/2023/interpretability-dreams/index.html</u></a></small>
+            <!-- Building on this framework, we introduce a new SAE training algorithm based on <span class="highlight">bias adaptation</span>, a technique that adaptively adjusts neural network bias parameters to ensure appropriate activation sparsity. 
+            We theoretically <span class="highlight">prove that this algorithm correctly recovers all monosemantic features</span> when input data is sampled from our proposed statistical model. 
+            Furthermore, we develop an improved empirical variant, Group Bias Adaptation (GBA), and <span class="highlight">demonstrate its superior performance against benchmark methods when applied to LLMs with up to 1.5 billion parameters</span>. 
+            This work represents a foundational step in demystifying SAE training by providing the first SAE algorithm with theoretical recovery guarantees, thereby advancing the development of more transparent and trustworthy AI systems through enhanced mechanistic interpretability. -->
+                  </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 <!-- Algorithm Design -->
@@ -196,20 +382,20 @@
         <h2 class="title is-3">Algorithm Motivation</h2>
         <div class="content has-text-justified">
           <p>
-            To address the limitations of existing Sparse Autoencoder (SAE) training methods, we propose a new algorithm called <em>Grouped Bias Adaptation</em> (GBA). 
-            Our algorithm has two main components: <span class="highlight">a bias adaptation subroutine</span> that controls the activation frequency of each neuron, and <span class="highlight">a neuron grouping strategy</span> that allows us to assign different target activation frequencies to different groups of neurons. 
+            To address the limitations of existing Sparse Autoencoder (SAE) training methods, we propose a new algorithm called <span class="highlight-2">Grouped Bias Adaptation (GBA)</span>. 
+            Our algorithm has two main components: a <b>bias adaptation</b> subroutine that controls the activation frequency of each neuron, and a <b>neuron grouping</b> strategy that allows us to assign different target activation frequencies to different groups of neurons. 
           </p>
-          <ol>
-            <li><strong>Bias Adaptation</strong><br>
-              Each neuron has a bias value that helps control when it activates. We adjust the bias dynamically based on the frequency of activation over a dataset. If a neuron is activated too frequently, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons that don’t contribute effectively.
+          <!-- <ol> -->
+            <!-- <li><strong>Bias Adaptation</strong><br>
+              Each neuron has a bias value that helps control when it activates. We adjust the bias dynamically based on the frequency of activation over a dataset. If a neuron is activated too frequently, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons that don't contribute effectively.
             </li>
             <li><strong>Neuron Grouping</strong><br>
               Instead of applying the same activation frequency control to all neurons, we group neurons into distinct sets. Each group targets different activation frequencies, allowing us to better capture both common and rare features in the data. For example, neurons that capture frequently occurring features might have a higher target activation frequency, while those that capture rarer features might have a lower one.
-            </li>
-          </ol>
-          <p>
+            </li> -->
+          <!-- </ol> -->
+          <!-- <p>
             By combining these two strategies, GBA offers direct control over neuron activation, avoiding the need for complex tuning while ensuring that neurons are activated at appropriate frequencies for their tasks.
-          </p>
+          </p> -->
         </div>
         
         <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
@@ -219,11 +405,46 @@
               <script type="text/javascript" async
               src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
               </script>
-              Figure 1: Illustration of neuron grouping and bias adaptation. Neurons are assigned to different groups with distinct Target Activation Frequencies (TAFs). (<b>Left</b>) Features with varying occurrence frequencies are captured by the group with designated TAFs. (<b>Right</b>) The bias adaptation mechanism shifts the neuron's bias \( b \) to achieve TAF over a buffer of data, where each colored bar represents the neuron's pre-activation on a data point.
+              Figure 1: <b>Neuron Grouping (Left):</b> Neurons are grouped and assigned different Target Activation Frequencies (TAFs).
+              <b>Bias Adaptation (Right):</b> The bias adaptation mechanism shifts the neuron's bias \( b \) to only allow the neuron to be activated by data that produces a large pre-activation. The bias is shifted in a way that the neuron achieves the designated TAF across the training dataset.
             </figcaption>
           </figure>
         </div>
-        
+
+        <div class="content has-text-justified">
+          <p>
+            <!-- <h2 style="font-weight: bold; font-size: 20px;">SOME DETAILS ABOUT GBA</h2> -->
+            <table class="table is-bordered is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Problem</th>
+                  <th>Solution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>\(\ell_1\) regularization method is sensitive to hyperparameter tuning.
+                    <ul>
+                      <li>The loss function is usually \(\mathcal{L} = \mathcal{L}_{\text{reconstruct}} + \lambda \mathcal{L}_{\text{sparsity}}\), where \(\lambda\) requires careful tuning.</li>
+                      <li>The activation frequency is not controlled on the neuron level.
+                      </li>
+                    </ul>
+                  </td>
+                  <td>GBA allows us to gain control over the activation frequency more accurately on the neuron level by directly adapting the bias of each neuron.</td>
+                </tr>
+                <tr>
+                  <td>TopK method does not account for data diversity:
+                    <ul>
+                      <li>The number of allowed activated neurons \(K\) for each input is fixed, while different inputs may have different number of features.</li>
+                      <li>The activation frequency is not controlled on the neuron level.</li>
+                    </ul>
+                  </td>
+                  <td>GBA can control the activation frequency more accurately on the neuron level by adapting the bias of each neuron.</td>
+                </tr>
+              </tbody>
+            </table>
+          </p>
+        </div>
       </div>
     </div>
   </div>

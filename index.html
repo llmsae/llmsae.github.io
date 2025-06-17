@@ -515,8 +515,8 @@
             <ul>
               <li><code>TopK</code>: A sparse activation method that retains only the top-K activated neurons.</li>
               <li><code>L1</code>: A sparse method that uses L1 regularization for sparsity.</li>
-              <li><code>BA (Bias Adaptation)</code>: A variant of GBA with a single group and hyperparameter tuning for sparsity.</li>
-              <li><code>GBA (Grouped Bias Adaptation)</code>: Our proposed method, which uses multiple groups of neurons with target activation frequencies (TAFs) set geometrically without hyperparameter tuning.</li>
+              <li><code>BA (Bias Adaptation)</code>: A variant of GBA with a single group and hyperparameter tuning for Target Activation Frequency (TAF).</li>
+              <li><code>GBA (Grouped Bias Adaptation)</code>: Our proposed method, which uses multiple groups of neurons with TAFs set geometrically without hyperparameter tuning.</li>
             </ul>
             All methods were trained using the AdamW optimizer with the same set of hyperparameters, including learning rate, weight decay, and batch size. In the GBA method, we used <span class="highlight">10 groups</span>, with the highest target frequency set to <span class="highlight">0.1</span> and the lowest set to <span class="highlight">0.001</span>.
           </p>
@@ -527,10 +527,10 @@
           <p>
             The first question we address is how the GBA method compares with other methods in terms of reconstruction loss and activation sparsity. The results show that GBA performs comparably to the TopK method with post-activation sparsity and outperforms it with pre-activation sparsity. Furthermore, GBA significantly outperforms the L1 and Bias Adaptation (BA) methods across all experiments.
           </p>
-          <ul>
-            <li><strong>Finding (1):</strong> GBA performs <span class="highlight">comparably to the best-performing benchmark</span>, <span class="highlight">TopK</span> with post-activation sparsity. In addition, GBA outperforms TopK with pre-activation sparsity. Specifically, when these methods have the same average fraction of activated neurons, GBA's reconstruction is comparable to that of TopK with post-activation sparsity and significantly better than that of TopK with pre-activation sparsity.</li>
-            <li><strong>Finding (2):</strong> <span class="highlight">GBA outperforms L1</span> significantly. When they have the same average fraction of activated neurons, GBA achieves a lower reconstruction loss.</li>
-            <li><strong>Finding (3):</strong> <span class="highlight">GBA outperforms BA</span> consistently across all experiments. This provides strong evidence that the grouping mechanism enhances both sparsity and reconstruction performance.</li>
+          <ul style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
+            <li>🎯<strong>Finding (1):</strong> GBA performs <span class="highlight">comparably to the best-performing benchmark</span>, <span class="highlight">TopK</span> with post-activation sparsity. In addition, GBA outperforms TopK with pre-activation sparsity. Specifically, when these methods have the same average fraction of activated neurons, GBA's reconstruction is comparable to that of TopK with post-activation sparsity and significantly better than that of TopK with pre-activation sparsity.</li>
+            <li>🏆<strong>Finding (2):</strong> <span class="highlight">GBA outperforms L1</span> significantly. When they have the same average fraction of activated neurons, GBA achieves a lower reconstruction loss.</li>
+            <li>🏆<strong>Finding (3):</strong> <span class="highlight">GBA outperforms BA</span> consistently across all experiments. This provides strong evidence that the grouping mechanism enhances both sparsity and reconstruction performance.</li>
           </ul>
         </div>
 
@@ -549,8 +549,8 @@
           <p>
             The second question revolves around the robustness of the GBA method to the choice of hyperparameters, such as the number of groups and target frequencies. Our ablation studies show that GBA is nearly tuning-free. As long as the Highest Target Frequency (HTF) is sufficiently high (e.g., 0.5) and the number of groups (K) is large enough (e.g., 10 or 20), GBA performs consistently well.
           </p>
-          <ul>
-            <li><strong>Finding (4):</strong> When HTF and LTF are properly chosen (e.g., a high HTF and a modestly low LTF), with an adequate number of groups, the GBA method achieves performance comparable to TopK, and the performance becomes largely <span class="highlight">insensitive to the specific choices of these parameters</span>.</li>
+          <ul style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
+            <li>🎯<strong>Finding (4):</strong> When HTF and LTF are properly chosen (e.g., a high HTF and a modestly low LTF), with an adequate number of groups, the GBA method achieves performance comparable to TopK, and the performance becomes largely <span class="highlight">insensitive to the specific choices of these parameters</span>.</li>
           </ul>
           <!-- <p>
             Even with variations in LTF and the number of groups, GBA maintains stable performance, making it less sensitive to hyperparameter tuning compared to methods like TopK, which requires manual tuning of the number of activated neurons.
@@ -573,9 +573,9 @@
             <!-- The third question examines the consistency of the features learned by the GBA method across independent runs with different random seeds. We evaluate this using the Maximum Cosine Similarity (MCS) metric, and the results show that GBA outperforms other methods, including TopK, in terms of feature consistency. -->
             The third question examines the consistency of the features learned by the GBA method across independent runs with different random seeds. We evaluate this using the Maximum Cosine Similarity (MCS) metric, and the results show that GBA outperforms other methods, including TopK, in terms of feature consistency. The specific definition of MCS can be found in the §A.2 of the paper. Simply put, MCS represents the similarity between the ground truth feature and the learned feature, with higher values indicating better consistency.
           </p>
-          <ul>
-            <li><strong>Finding (5):</strong> As the TopK method is shown to be seed-dependent, it has the lowest MCS overall. Our <span class="highlight">GBA method outperforms TopK</span> in achieving a higher percentage of neurons with high MCS.</li>
-            <li><strong>Finding (6):</strong> The L1 method is more consistent than TopK uniformly and more consistent than GBA in three of the four cases. However, when focusing on neurons with the top-0.05% activations, our GBA method surpasses the L1 method.</li>
+          <ul style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
+            <li>🏆<strong>Finding (5):</strong> As the TopK method is shown to be seed-dependent, it has the lowest MCS overall. Our <span class="highlight">GBA method outperforms TopK</span> in achieving a higher percentage of neurons with high MCS.</li>
+            <li>🎯<strong>Finding (6):</strong> The L1 method is more consistent than TopK uniformly and more consistent than GBA in three of the four cases. However, when focusing on neurons with the top-0.05% activations, our GBA method surpasses the L1 method.</li>
           </ul>
         </div>
 
@@ -593,7 +593,7 @@
         <div class="content has-text-justified">
           <p>
             We provide additional studies on the neurons learned by the GBA and TopK methods in terms of the three metrics used above: maximum activation, Z-score, and maximum cosine similarity across different runs with different random seeds.
-            These metrics are computed based on the validation part of the <code>Github</code> dataset, with the hook position at the MLP output of layer 26.
+            These metrics are computed based on the validation part of the <code>Pile Github</code> dataset, with the hook position at the MLP output of layer 26.
             For each neuron, we also compute the <em>activation fraction</em> (or activation rate), which is the fraction of tokens where the pre-activations of the neuron are non-negative.
           </p>
           <p>
@@ -610,9 +610,9 @@
           </figure>
         </div>
 
-        <h3 class="title is-5">Subplots Explanation</h3>
         <div class="content has-text-justified">
-          <ul>
+          <ul style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
+            <li style="font-weight: bold; font-size: 1.1em; margin-bottom: 10px;">Subplots Explanation</li>
             <li><strong>Left:</strong> Z-score vs Maximum Activation - This plot shows the relationship between the Z-score and maximum activation of neurons. We observe an <span class="highlight">almost linear relationship</span>, indicating that neurons with higher Z-scores also have higher maximum activations.</li>
             <li><strong>Middle:</strong> Z-score vs Activation Fraction - This plot illustrates the correlation between the Z-score and the activation fraction. Neurons with higher Z-scores tend to have a lower activation fraction, capturing more infrequent features.</li>
             <li><strong>Right:</strong> Z-score vs Maximum Cosine Similarity - This plot compares the Z-score and maximum cosine similarity across different runs. It shows that <span class="highlight">neurons with higher Z-scores tend to exhibit higher consistency in feature recovery across runs</span>.</li>
@@ -620,14 +620,14 @@
         </div>
 
         <!-- Placeholder for the second set of scatter plots for TopK neurons -->
-        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+        <!-- <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
           <figure>
             <img src="./static/images/zscore_2.png" alt="Scatter plots for TopK neurons">
             <figcaption style="font-size: small; text-align: left;">
               Figure 6: Scatter plots for the neurons trained using TopK with \( K=300 \), showing similar neuron properties.
             </figcaption>
           </figure>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

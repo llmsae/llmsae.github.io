@@ -440,7 +440,7 @@
             <strong>🔄 During the training: Bias Adaptation to Achieve TAFs</strong><br>
             During training, we perform two main operations:
             <ul>
-                <li>Minimize reconstruction loss by performing gradient steps on the weights \(w_m\)</li>
+                <li>Minimize reconstruction loss by performing gradient steps on the weights \((w_m, a_m, b_{\mathrm{pre}})\).</li>
                 <li>Dynamically adjust neuron biases based on activation frequency:
                     <ul>
                         <li>If a neuron activates more frequently than its TAF → decrease its bias to reduce activation</li>

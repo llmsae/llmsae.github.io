@@ -244,7 +244,7 @@
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            <h2 style="font-weight: bold; font-size: 20px;">WHAT IS FEATURE RECOVERY?</h2>
+            <h2 style="font-weight: bold; font-size: 20px;">BACKGROUND 1: FEATURE RECOVERY</h2>
             To understand the task of feature recovery, let us consider the following example sentence: 
             <blockquote>
                 <p>
@@ -299,28 +299,48 @@
             </p>
             </div>
 
-            <div class="content has-text-justified">
-            <p>
-            <h2 style="font-weight: bold; font-size: 20px;">WHAT ARE SPARSE AUTOENCODERS?</h2>
-            At the core of our feature recovery method is the Sparse Autoencoder (SAE), a neural network designed to learn sparse representations through self-reconstruction. A typical SAE architecture (with weight sharing between encoding and decoding layers) can be described as follows:
-            \[
-                f(x; \Theta) = \sum_{m=1}^M a_{m} \cdot w_{m} \cdot \phi\bigl( \underbrace{{w_{m}^\top (x-b_{\mathrm{pre}}) + b_{m}}}_{\displaystyle  \small\text{pre-activation}~y_m} \bigr) + b_{\mathrm{pre}}.
-            \]
-
-            <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-              <figure>
-                <img src="./static/images/SAE.pdf" alt="Illustration of neuron grouping and bias adaptation">
-                <figcaption style="font-size: small; text-align: left;">
-                  <script type="text/javascript" async
-                  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-                  </script>
-                  Figure 1: <b>Sparse Autoencoder Architecture:</b> The SAE architecture with weight sharing between encoding and decoding layers.
-                </figcaption>
-              </figure>
+        <div class="content has-text-justified">
+          <p>
+            <h2 style="font-weight: bold; font-size: 20px;">BACKGROUND 2: SPARSE AUTOENCODERS</h2>
+            <div class="box">
+              <h4 class="title is-5">🔍 What are SAEs?</h4>
+              At the core of our feature recovery method is the Sparse Autoencoder (SAE), a neural network designed to learn sparse representations through self-reconstruction. A typical SAE architecture (with weight sharing between encoding and decoding layers) can be described as follows:
+              \[
+                  \hat x = \sum_{m=1}^M a_{m} \cdot w_{m} \cdot \phi\bigl( \underbrace{{w_{m}^\top (x-b_{\mathrm{pre}}) + b_{m}}}_{\displaystyle  \small\text{pre-activation}~y_m} \bigr) + b_{\mathrm{pre}}, 
+              \]
+              where each \(m\) index a neuron in the SAE, \(w_m\in \mathbb{R}^d\) is the tied weight vector for both encoding and decoding, \(a_m\in \mathbb{R}\) is the output scale for neuron \(m\), \(b_m\in \mathbb{R}\) is the bias for neuron \(m\), and \(b_{\mathrm{pre}}\in \mathbb{R}^d\) is the pre-bias vector that centers the input data. People usually use some nonlinear activation function \(\phi\) like ReLU or JumpReLU. 
+              <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+                <figure>
+                  <img src="./static/images/SAE.png" alt="Illustration of neuron grouping and bias adaptation" width="40%">
+                  <figcaption style="font-size: small; text-align: left;">
+                    <script type="text/javascript" async
+                    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+                    </script>
+                    <center>Figure 1: Sparse Autoencoder Architecture, where the latent representation \(z\in\mathbb{R}^M\) is obtained by passing the pre-activation \(y_m\) through the activation function \(\phi\).</center>
+                  </figcaption>
+                </figure>
+              </div>
             </div>
 
-            A neuron is considered "activated" when its pre-activation y_m > 0. When activated, the neuron contributes to the output proportionally to its weight vector w_m, scaled by a_m.
-            <ul>
+            <div class="box">
+              <h4 class="title is-5">🔧 How are SAEs trained?</h4>
+              Given the input \(x\in \mathbb{R}^d\), the SAE outputs \(\hat x\in \mathbb{R}^d\) as the reconstruction, and the training objective is to minimize the reconstruction error with a regularization term to encourage sparsity.
+              Specifically, the training objective for the \(\ell_1\) method is to minimize the following loss function:
+              \[
+                  \mathcal{L} = \mathbb{E}_{x\sim \mathcal{D}} \biggl[\underbrace{ (\hat x - x)^2}_{\displaystyle \small\text{reconstruction loss}} + \underbrace{\lambda \sum_{m=1}^M \|w_m\|_2 \phi(w_m^\top (x - b_{\mathrm{pre}}) + b_m)}_{\displaystyle \small\text{sparsity regularization}} \biggr].
+              \]
+              where \(\mathcal{D}\) is the training dataset, and \(\lambda\) is the regularization parameter.
+              The first term is the reconstruction loss, and the second term is the sparsity regularization term.
+              The sparsity regularization term encourages the SAE to activate only a small number of neurons, which is crucial for feature recovery. The TopK method does not have a regularization term, and the activation frequency is controlled by only allowing the top-K neurons in terms of the pre-activation \(y_m\) to be activated.
+            </div>
+
+            <div class="box">
+              <h4 class="title is-5">🤔 Why using SAEs?</h4>
+              The hypothesis is that by enforcing activation sparsity, SAEs can decompose polysemantic representations (a mixture of multiple features) into monosemantic features (which each correspond to a single interpretable concept). Empirically, SAEs have been shown to learn interpretable features for LLMs.
+            </div>
+            
+            
+            <!-- <ul>
                 <li>
                 🔍 <b>What are SAEs?</b> Sparse Autoencoders (SAEs) are neural networks that are used to "decompose" the inner representation of another neural network (e.g., LLM) into a set of monosemantic features.
                 </li>
@@ -333,17 +353,18 @@
                 <!-- <li> -->
                 <!-- 🎯 <b>The key challenge</b> is designing training algorithms that reliably recover these monosemantic features while maintaining good reconstruction quality.
                 </li> -->
-            </ul>
+            
+           
           </p>
         </div>
         <div class="content has-text-justified">
           <p>
             <h2 style="font-weight: bold; font-size: 20px;">WHAT ARE THE CHALLENGES</h2>
-            We study the challenge of achieving theoretically grounded feature recovery using Sparse Autoencoders (SAEs) for the interpretation of Large Language Models. 
+            The current SAE training algorithms face the following challenges:
             <ul>
                 <li><b>Theoretical uncertainty:</b> We lack clear feature definitions  and current SAE training algorithms <span class="question">lack theoretical guarantees</span>, making reliable feature recovery uncertain.</li>
                 <li><b>Hyperparameter sensitivity:</b> Empirically, \( \ell_1 \) regularization and TopK activation methods are <span class="question">sensitive to hyperparameters</span> tuning.</li>
-                <li><b>Feature inconsistency:</b> TopK activation methods produce <span class="question">inconsistent features</span> across different random seeds.</li>
+                <li><b>Feature inconsistency:</b> TopK activation methods produce <span class="question">inconsistent features</span> across different random seeds.<sup>1</sup></li>
             </ul>
             <h2 style="font-weight: bold; font-size: 20px;">WHAT ARE OUR GOALS</h2>
             Our research aims to address these challenges with the following objectives:
@@ -352,7 +373,7 @@
                 ✅<b>Theoretical foundation:</b> Develop a rigorous mathematical framework for understanding and analyzing feature recovery in SAEs.
                 </li>
                 <li>
-                📈 <b>Algorithm design:</b> Create a simple and robust training algorithm that can reliably recover monosemantic features without extensive hyperparameter tuning, and learn more consistent features across different random seeds<sup>1</sup>.
+                📈<b>Algorithm design:</b> Create a simple and robust training algorithm that can reliably recover monosemantic features without extensive hyperparameter tuning, and learn more consistent features across different random seeds.
                 </li>
             </ul>
             

@@ -708,6 +708,35 @@
             </div>
         </p>
         </p>
+
+        <h3 class="title is-4" style="text-align: center;">Neuron Selectivity</h3>
+        <p class="content" style="text-align: left;">
+          Building on our understanding of feature identifiability, we now explore how the GBA algorithm's neuron grouping strategy leads to selective feature learning. In our synthetic experiments, where each feature appears with frequency \(f = \Theta(1/n)\), we discovered a fundamental relationship between feature frequency and Target Activation Frequency (TAF).
+
+          <div style="margin: 10px 0;">
+            <div style="background-color: #e0e0e0; padding: 8px; border-top-left-radius: 5px; border-top-right-radius: 5px; text-align: left;">
+              <strong>Informal Theorem (Feature Learning Selectivity)</strong>
+            </div>
+            <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
+              For a feature appearing with frequency \(f\), the BA algorithm can successfully recover it when the TAF \(p\) is chosen within the interval:
+              \[
+              (f, \min\{f^{(1 + h_\star^2)/2}, d \cdot f\})
+              \]
+              This implies that <span class="highlight">feature learning is selective</span>: a feature is more likely to be learned by a neuron whose TAF is higher than the feature's frequency but roughly less than its square root.
+            </div>
+          </div>
+
+          This selectivity principle explains why GBA's performance isn't dominated by the first group with the highest TAF. Instead, features tend to be learned by neuron groups with matching TAFs. This behavior is analogous to the physical phenomenon of resonance, where each neuron group acts as a resonator tuned to a specific frequency (TAF), while each feature behaves like a sound wave with its own frequency (occupancy frequency). A feature is preferentially learned by the group whose TAF <span class="highlight">resonates</span> with the feature's natural occurrence frequency.
+
+          <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+            <figure>
+              <img src="./static/images/selectivity_analysis.png" alt="Analysis of feature learning selectivity">
+              <figcaption style="font-size: small; text-align: left;">
+                <center>Figure 7: Feature Recovery Rate (FRR) heatmap for the BA algorithm under various TAFs \(p\) and dimensions \(d\) with both axes in log scale. The experiment is conducted under <span class="highlight">high superposition</span> conditions with parameters \((n, M, s, h_\star) = (65536, 2.62\times10^5, 3, 1/\sqrt3)\). The results show that the learnable region expands as the dimension \(d\) grows, confirming our theoretical predictions about feature learning selectivity.</center>
+              </figcaption>
+            </figure>
+          </div>
+        </p>
       </div>
     </div>
   </div>

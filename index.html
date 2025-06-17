@@ -415,7 +415,7 @@
             </li>
             <li><strong>During the training: Bias Adaptation to Achieve TAFs</strong><br>
               <blockquote>
-                Besides minimizing the reconstruction loss, we also adjust the bias dynamically based on the frequency of activation over a dataset. If a neuron is activated more frequently than its TAF, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons.
+                Besides minimizing the reconstruction loss by performing gradient step on the weights \(w_m\), we also adjust the bias dynamically based on the frequency of neuron activation over a dataset. If a neuron is activated more frequently than its TAF, we decrease its bias to reduce its activation. On the other hand, if it's rarely activated, we increase its bias to encourage more frequent activations. This helps maintain a balance between sufficient activation and avoiding "dead" neurons.
               </blockquote>
             </li>
           </ol>

@@ -442,7 +442,7 @@
             <ul>
                 <li>Minimize reconstruction loss by performing gradient steps on the weights \((w_m, a_m, b_{\mathrm{pre}})\) except for the biases.
                 </li>
-                <li>Dynamically adjust neuron biases based on activation frequency:
+                <li>Dynamically adjust neuron biases based on activation frequency in a data buffer:
                     <ul>
                         <li>If a neuron activates more frequently than its TAF → decrease its bias to reduce activation</li>
                         <li>If a neuron activates less frequently than its TAF → increase its bias to encourage activation</li>

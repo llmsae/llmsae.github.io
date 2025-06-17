@@ -677,16 +677,35 @@
             <div style="background-color: #e0e0e0; padding: 8px; border-top-left-radius: 5px; border-top-right-radius: 5px; text-align: left;">
               <strong>Informal Definition (Feature Identifiability)</strong>
             </div>
-            <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left;">
+            <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
               A feature matrix \(V \in \mathbb{R}^{n\times d}\) is identifiable with data \(X = HV\) if for any other feature matrix \(V'\) (possibly with different number of features in the rows) and comformal coefficient matrix \(H'\) that satisfy \(X = H'V'\), there is a way to obtain \(V\) from \(V'\) in the following 3 steps:
               <ol style="list-style-type: decimal; padding-left: 30px; margin-top: 5px; margin-bottom: 5px;">
-                <li>Split the features of \(V'\) into \(n\) disjoint groups, then form a new feature matrix \(V''\in\mathbb{R}^{n\times d}\) by taking nonnegative convex combinations of features within each group.</li>
+                <li>Split the features of \(V'\) into \(n\) disjoint groups, then form a new feature matrix \(V''\in\mathbb{R}^{n\times d}\) by taking convex combinations of features within each group.</li>
                 <li>Scale the rows of \(V''\) to match the rows of \(V\).</li>
                 <li>Permute the rows of \(V''\) to match the rows of \(V\).</li>
               </ol>
             </div>
           </div>
-          The answer to this question also gives a concrete way for defining the <span class="highlight">monosemantic features</span> underlying each concept.
+          <div style="text-align: left;">
+            In fact, a feature matrix \(V\) is identifiable only if it has the <span class="highlight">minimal</span> number of features in the rows due to step 1 in the grouping process. The second and third steps capture the ambiguity in the scale of the feature vectors and the order of the features in the rows, respectively. In a nutshell, finding an identifiable feature matrix \(V\) in this feature recovery problem is equivalent to
+            <blockquote style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; border-left: 4px solid #888;">
+               finding the <span class="highlight">minimal</span> number of features that are <span class="highlight">unique up to feature scaling and permutation</span>.
+            </blockquote>
+            To achieve this, we identify the following conditions that guarantee the identifiability of the feature matrix \(V\):
+            <div style="margin: 10px 0;">
+              <div style="background-color: #e0e0e0; padding: 8px; border-top-left-radius: 5px; border-top-right-radius: 5px; text-align: left;">
+                <strong>Informal Theorem (Identifiability Conditions)</strong>
+              </div>
+              <div style="background-color: #f5f5f5; padding: 12px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; text-align: left; font-style: italic;">
+                Given data \(X = HV\), the feature matrix \(V\) is identifiable if the following conditions are met:
+                <ol style="list-style-type: decimal; padding-left: 30px; margin-top: 5px; margin-bottom: 5px;">
+                  <li>(Row-wise sparsity) Each data contains at most \(O(1)\) features.</li>
+                  <li>(Non-degeneracy) The average scale of the non-zero entries in each row of \(H\) is \(O(1)\).</li>
+                  <li>(Low co-occurrence) The number of data in which two features co-occur is less than \(n^{-1/2}\) times the number of data each feature appears in.</li>
+                  <li>(Incoherence) The cosine similarity between any two features is \(o(1)\).</li> 
+                </ol>
+              </div>
+            </div>
         </p>
         </p>
       </div>
